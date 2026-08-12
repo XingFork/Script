@@ -1,4 +1,4 @@
-local Games = {
+--[[local Games = {
     [2440500124] = "Doors",
     [5877971206] = "FPE-S",
     [6331902150] = "被遗弃",
@@ -15,7 +15,8 @@ local Games = {
     [210851291] = "造船寻宝",
     [1526814825] = "战争大亨",
     [65241] = "自然灾害"
-}
+}]]
+local Games = {"等待修复"}
 
 local cloneref = cloneref or function(a) return a end
 local CoreGui = cloneref(game:GetService("CoreGui"))
