@@ -14,7 +14,7 @@ local gethui = gethui or function() return CoreGui end
 local mouse = cloneref(Players.LocalPlayer:GetMouse())
 
 local LocaleId = Players.LocalPlayer.LocaleId
-local ShouldTranslate = LocaleId:sub(1, 2) ~= "zh"
+local ShouldTranslate = (not getgenv().XA_Translation) and (LocaleId:sub(1, 2) ~= "zh") or false
 local Translation
 
 if ShouldTranslate then
