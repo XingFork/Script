@@ -16,8 +16,14 @@ local mouse = cloneref(Players.LocalPlayer:GetMouse())
 local LocaleId = Players.LocalPlayer.LocaleId
 local ShouldTranslate = LocaleId:sub(1, 2) ~= "zh"
 local Translation
+
 if ShouldTranslate then
     Translation = loadstring(game:HttpGet("https://raw.githubusercontent.com/XingFork/Script/refs/heads/main/XATranslation.lua"))()
+    if Translation then
+        Translation["取消"] = "Cancel"
+        Translation["确认"] = "Confirm"
+        Translation["隐藏/打开"] = "Hide/Open"
+    end
 end
 local function Translate(zhtext)
     if not ShouldTranslate then return zhtext end
@@ -116,7 +122,7 @@ function Library.new(Library, name)
     local MainColor = Color3.fromRGB(25, 25, 25)
     local ElementColor = Color3.fromRGB(35, 40, 70)
     local BackgroundColor = Color3.fromRGB(255, 255, 255)
-    
+
     local dogent = Instance.new("ScreenGui")
     local Main = Instance.new("Frame")
     local TabMain = Instance.new("Frame")
@@ -129,7 +135,7 @@ function Library.new(Library, name)
     local TabBtnsL = Instance.new("UIListLayout")
     local ScriptTitle = Instance.new("TextLabel")
     local SBG = Instance.new("UIGradient")
-    
+
     local Open = Instance.new("TextButton")
     local UICornerMain = Instance.new("UICorner")
 
@@ -225,7 +231,7 @@ function Library.new(Library, name)
     ScriptTitle.TextSize = 14.000
     ScriptTitle.TextScaled = true
     ScriptTitle.TextXAlignment = Enum.TextXAlignment.Left
-    
+
     local hue = 0
     task.spawn(function()
         while true do
@@ -252,14 +258,14 @@ function Library.new(Library, name)
     Open.Size = UDim2.new(0, 61, 0, 32)
     Open.Transparency = 0.75
     Open.Font = Enum.Font.SourceSans
-    Open.Text = "隐藏/打开"
+    Open.Text = Translate("隐藏/打开")
     Open.TextColor3 = Color3.fromRGB(255, 255, 255)
     Open.TextTransparency = 0
     Open.TextSize = 14.000
     Open.Active = true
     Open.Draggable = true
     Open.MouseButton1Click:Connect(ToggleUILib)
-    
+
     Library.ToggleKeybind = Enum.KeyCode.LeftControl
     UserInputService.InputBegan:Connect(function(input)
         if input.KeyCode == Library.ToggleKeybind then
@@ -488,7 +494,7 @@ function Library.new(Library, name)
                         spawn(callback)
                     end
                 )
-                
+
                 return BtnModule
             end
 
@@ -1289,431 +1295,431 @@ function Library.new(Library, name)
 
                 return funcs
             end
-            
+
             function section.Colorpicker(section, text, flag, defaultColor, callback)
-			    text = Translate(text)
-				assert(text, "No text provided")
-				assert(flag, "No flag provided")
+                            text = Translate(text)
+                                assert(text, "No text provided")
+                                assert(flag, "No flag provided")
 
-				if type(defaultColor) == "function" then
-					callback = defaultColor
-					defaultColor = nil
-				end
-				defaultColor = defaultColor or Color3.new(1, 1, 1)
-				callback = callback or function() end
-				assert(typeof(defaultColor) == "Color3", "defaultColor must be a Color3")
+                                if type(defaultColor) == "function" then
+                                        callback = defaultColor
+                                        defaultColor = nil
+                                end
+                                defaultColor = defaultColor or Color3.new(1, 1, 1)
+                                callback = callback or function() end
+                                assert(typeof(defaultColor) == "Color3", "defaultColor must be a Color3")
 
-				Library.flags[flag] = defaultColor
+                                Library.flags[flag] = defaultColor
 
-				local ColorModule = Instance.new("Frame")
-				local ColorBtn = Instance.new("TextButton")
-				local ColorBtnC = Instance.new("UICorner")
-				local ColorPreview = Instance.new("Frame")
-				local ColorPreviewC = Instance.new("UICorner")
+                                local ColorModule = Instance.new("Frame")
+                                local ColorBtn = Instance.new("TextButton")
+                                local ColorBtnC = Instance.new("UICorner")
+                                local ColorPreview = Instance.new("Frame")
+                                local ColorPreviewC = Instance.new("UICorner")
 
-				ColorModule.Name = "ColorModule"
-				ColorModule.Parent = Objs
-				ColorModule.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-				ColorModule.BackgroundTransparency = 1.000
-				ColorModule.BorderSizePixel = 0
-				ColorModule.Size = UDim2.new(0, 428, 0, 38)
+                                ColorModule.Name = "ColorModule"
+                                ColorModule.Parent = Objs
+                                ColorModule.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                                ColorModule.BackgroundTransparency = 1.000
+                                ColorModule.BorderSizePixel = 0
+                                ColorModule.Size = UDim2.new(0, 428, 0, 38)
 
-				ColorBtn.Name = "ColorBtn"
-				ColorBtn.Parent = ColorModule
-				ColorBtn.BackgroundColor3 = ElementColor
-				ColorBtn.BorderSizePixel = 0
-				ColorBtn.Size = UDim2.new(0, 428, 0, 38)
-				ColorBtn.AutoButtonColor = false
-				ColorBtn.Font = Enum.Font.GothamSemibold
-				ColorBtn.Text = "   " .. text
-				ColorBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-				ColorBtn.TextSize = 16.000
-				ColorBtn.TextXAlignment = Enum.TextXAlignment.Left
+                                ColorBtn.Name = "ColorBtn"
+                                ColorBtn.Parent = ColorModule
+                                ColorBtn.BackgroundColor3 = ElementColor
+                                ColorBtn.BorderSizePixel = 0
+                                ColorBtn.Size = UDim2.new(0, 428, 0, 38)
+                                ColorBtn.AutoButtonColor = false
+                                ColorBtn.Font = Enum.Font.GothamSemibold
+                                ColorBtn.Text = "   " .. text
+                                ColorBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+                                ColorBtn.TextSize = 16.000
+                                ColorBtn.TextXAlignment = Enum.TextXAlignment.Left
 
-				ColorBtnC.CornerRadius = UDim.new(0, 6)
-				ColorBtnC.Name = "ColorBtnC"
-				ColorBtnC.Parent = ColorBtn
+                                ColorBtnC.CornerRadius = UDim.new(0, 6)
+                                ColorBtnC.Name = "ColorBtnC"
+                                ColorBtnC.Parent = ColorBtn
 
-				ColorPreview.Name = "ColorPreview"
-				ColorPreview.Parent = ColorBtn
-				ColorPreview.BackgroundColor3 = defaultColor
-				ColorPreview.BorderSizePixel = 0
-				ColorPreview.Position = UDim2.new(0.901869178, 0, 0.289473683, 0)
-				ColorPreview.Size = UDim2.new(0, 36, 0, 22)
+                                ColorPreview.Name = "ColorPreview"
+                                ColorPreview.Parent = ColorBtn
+                                ColorPreview.BackgroundColor3 = defaultColor
+                                ColorPreview.BorderSizePixel = 0
+                                ColorPreview.Position = UDim2.new(0.901869178, 0, 0.289473683, 0)
+                                ColorPreview.Size = UDim2.new(0, 36, 0, 22)
 
-				ColorPreviewC.CornerRadius = UDim.new(0, 6)
-				ColorPreviewC.Name = "ColorPreviewC"
-				ColorPreviewC.Parent = ColorPreview
+                                ColorPreviewC.CornerRadius = UDim.new(0, 6)
+                                ColorPreviewC.Name = "ColorPreviewC"
+                                ColorPreviewC.Parent = ColorPreview
 
-				local function updateColor(newColor)
-					ColorPreview.BackgroundColor3 = newColor
-					Library.flags[flag] = newColor
-					callback(newColor)
-				end
+                                local function updateColor(newColor)
+                                        ColorPreview.BackgroundColor3 = newColor
+                                        Library.flags[flag] = newColor
+                                        callback(newColor)
+                                end
 
-				local pickerGui = nil
-				local isOpen = false
-				local currentHue, currentSat, currentVib = Color3.toHSV(defaultColor)
-				local currentTransparency = nil
-				local satVibMap, satCursor, hueSlider, hueDrag, hexInput, redInput, greenInput, blueInput
-				local confirmBtn, cancelBtn
+                                local pickerGui = nil
+                                local isOpen = false
+                                local currentHue, currentSat, currentVib = Color3.toHSV(defaultColor)
+                                local currentTransparency = nil
+                                local satVibMap, satCursor, hueSlider, hueDrag, hexInput, redInput, greenInput, blueInput
+                                local confirmBtn, cancelBtn
 
-				local function round(num, factor)
-					if factor == 0 then return math.floor(num) end
-					num = tostring(num)
-					return num:find("%.") and tonumber(num:sub(1, num:find("%.") + factor)) or num
-				end
+                                local function round(num, factor)
+                                        if factor == 0 then return math.floor(num) end
+                                        num = tostring(num)
+                                        return num:find("%.") and tonumber(num:sub(1, num:find("%.") + factor)) or num
+                                end
 
-				local function updatePickerUI()
-					if not pickerGui then return end
-					local color = Color3.fromHSV(currentHue, currentSat, currentVib)
-					if satVibMap then satVibMap.BackgroundColor3 = Color3.fromHSV(currentHue, 1, 1) end
-					if satCursor then
-						satCursor.Position = UDim2.new(currentSat, 0, 1 - currentVib, 0)
-						satCursor.BackgroundColor3 = color
-					end
-					if hueDrag then
-						hueDrag.Position = UDim2.new(0.5, 0, currentHue, 0)
-						hueDrag.BackgroundColor3 = Color3.fromHSV(currentHue, 1, 1)
-					end
-					if hexInput and hexInput.Frame and hexInput.Frame.Frame and hexInput.Frame.Frame.TextBox then
-						hexInput.Frame.Frame.TextBox.Text = "#" .. color:ToHex()
-					end
-					if redInput and redInput.Frame and redInput.Frame.Frame and redInput.Frame.Frame.TextBox then
-						local r = math.floor(color.R * 255)
-						local g = math.floor(color.G * 255)
-						local b = math.floor(color.B * 255)
-						redInput.Frame.Frame.TextBox.Text = tostring(r)
-						greenInput.Frame.Frame.TextBox.Text = tostring(g)
-						blueInput.Frame.Frame.TextBox.Text = tostring(b)
-					end
-					local newDisplay = pickerGui:FindFirstChild("Main") and pickerGui.Main:FindFirstChild("NewDisplayFrame")
-					if newDisplay then newDisplay.BackgroundColor3 = color end
-				end
+                                local function updatePickerUI()
+                                        if not pickerGui then return end
+                                        local color = Color3.fromHSV(currentHue, currentSat, currentVib)
+                                        if satVibMap then satVibMap.BackgroundColor3 = Color3.fromHSV(currentHue, 1, 1) end
+                                        if satCursor then
+                                                satCursor.Position = UDim2.new(currentSat, 0, 1 - currentVib, 0)
+                                                satCursor.BackgroundColor3 = color
+                                        end
+                                        if hueDrag then
+                                                hueDrag.Position = UDim2.new(0.5, 0, currentHue, 0)
+                                                hueDrag.BackgroundColor3 = Color3.fromHSV(currentHue, 1, 1)
+                                        end
+                                        if hexInput and hexInput.Frame and hexInput.Frame.Frame and hexInput.Frame.Frame.TextBox then
+                                                hexInput.Frame.Frame.TextBox.Text = "#" .. color:ToHex()
+                                        end
+                                        if redInput and redInput.Frame and redInput.Frame.Frame and redInput.Frame.Frame.TextBox then
+                                                local r = math.floor(color.R * 255)
+                                                local g = math.floor(color.G * 255)
+                                                local b = math.floor(color.B * 255)
+                                                redInput.Frame.Frame.TextBox.Text = tostring(r)
+                                                greenInput.Frame.Frame.TextBox.Text = tostring(g)
+                                                blueInput.Frame.Frame.TextBox.Text = tostring(b)
+                                        end
+                                        local newDisplay = pickerGui:FindFirstChild("Main") and pickerGui.Main:FindFirstChild("NewDisplayFrame")
+                                        if newDisplay then newDisplay.BackgroundColor3 = color end
+                                end
 
-				local function createPicker()
-					if pickerGui then return end
+                                local function createPicker()
+                                        if pickerGui then return end
 
-					pickerGui = Instance.new("ScreenGui")
-					pickerGui.Name = "ColorPicker"
-					pickerGui.Parent = gethui()
-					pickerGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+                                        pickerGui = Instance.new("ScreenGui")
+                                        pickerGui.Name = "ColorPicker"
+                                        pickerGui.Parent = gethui()
+                                        pickerGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
-					local mainFrame = Instance.new("Frame")
-					mainFrame.Name = "Main"
-					mainFrame.Parent = pickerGui
-					mainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
-					mainFrame.BackgroundColor3 = ElementColor
-					mainFrame.BackgroundTransparency = 0.2
-					mainFrame.BorderSizePixel = 0
-					mainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
-					mainFrame.Size = UDim2.new(0, 340, 0, 340)
-					mainFrame.Active = true
-					mainFrame.Draggable = true
+                                        local mainFrame = Instance.new("Frame")
+                                        mainFrame.Name = "Main"
+                                        mainFrame.Parent = pickerGui
+                                        mainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+                                        mainFrame.BackgroundColor3 = ElementColor
+                                        mainFrame.BackgroundTransparency = 0.2
+                                        mainFrame.BorderSizePixel = 0
+                                        mainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+                                        mainFrame.Size = UDim2.new(0, 340, 0, 340)
+                                        mainFrame.Active = true
+                                        mainFrame.Draggable = true
 
-					local corner = Instance.new("UICorner")
-					corner.CornerRadius = UDim.new(0, 8)
-					corner.Parent = mainFrame
+                                        local corner = Instance.new("UICorner")
+                                        corner.CornerRadius = UDim.new(0, 8)
+                                        corner.Parent = mainFrame
 
-					local title = Instance.new("TextLabel")
-					title.Parent = mainFrame
-					title.BackgroundTransparency = 1
-					title.Position = UDim2.new(0, 10, 0, 10)
-					title.Size = UDim2.new(0, 200, 0, 20)
-					title.Font = Enum.Font.GothamSemibold
-					title.Text = text
-					title.TextColor3 = Color3.fromRGB(255, 255, 255)
-					title.TextSize = 14
-					title.TextXAlignment = Enum.TextXAlignment.Left
+                                        local title = Instance.new("TextLabel")
+                                        title.Parent = mainFrame
+                                        title.BackgroundTransparency = 1
+                                        title.Position = UDim2.new(0, 10, 0, 10)
+                                        title.Size = UDim2.new(0, 200, 0, 20)
+                                        title.Font = Enum.Font.GothamSemibold
+                                        title.Text = text
+                                        title.TextColor3 = Color3.fromRGB(255, 255, 255)
+                                        title.TextSize = 14
+                                        title.TextXAlignment = Enum.TextXAlignment.Left
 
-					local closeBtn = Instance.new("TextButton")
-					closeBtn.Parent = mainFrame
-					closeBtn.BackgroundColor3 = ElementColor
-					closeBtn.Position = UDim2.new(1, -30, 0, 5)
-					closeBtn.Size = UDim2.new(0, 20, 0, 20)
-					closeBtn.Text = "X"
-					closeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-					closeBtn.TextSize = 12
-					closeBtn.AutoButtonColor = false
-					local closeCorner = Instance.new("UICorner")
-					closeCorner.CornerRadius = UDim.new(0, 4)
-					closeCorner.Parent = closeBtn
-					closeBtn.MouseButton1Click:Connect(function()
-						if pickerGui then pickerGui:Destroy(); pickerGui = nil end
-						isOpen = false
-					end)
+                                        local closeBtn = Instance.new("TextButton")
+                                        closeBtn.Parent = mainFrame
+                                        closeBtn.BackgroundColor3 = ElementColor
+                                        closeBtn.Position = UDim2.new(1, -30, 0, 5)
+                                        closeBtn.Size = UDim2.new(0, 20, 0, 20)
+                                        closeBtn.Text = "X"
+                                        closeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+                                        closeBtn.TextSize = 12
+                                        closeBtn.AutoButtonColor = false
+                                        local closeCorner = Instance.new("UICorner")
+                                        closeCorner.CornerRadius = UDim.new(0, 4)
+                                        closeCorner.Parent = closeBtn
+                                        closeBtn.MouseButton1Click:Connect(function()
+                                                if pickerGui then pickerGui:Destroy(); pickerGui = nil end
+                                                isOpen = false
+                                        end)
 
-					satVibMap = Instance.new("ImageLabel")
-					satVibMap.Parent = mainFrame
-					satVibMap.Size = UDim2.new(0, 160, 0, 160)
-					satVibMap.Position = UDim2.new(0, 10, 0, 40)
-					satVibMap.Image = "rbxassetid://4155801252"
-					satVibMap.BackgroundColor3 = Color3.fromHSV(currentHue, 1, 1)
-					satVibMap.BackgroundTransparency = 0
-					local satCorner = Instance.new("UICorner")
-					satCorner.CornerRadius = UDim.new(0, 8)
-					satCorner.Parent = satVibMap
+                                        satVibMap = Instance.new("ImageLabel")
+                                        satVibMap.Parent = mainFrame
+                                        satVibMap.Size = UDim2.new(0, 160, 0, 160)
+                                        satVibMap.Position = UDim2.new(0, 10, 0, 40)
+                                        satVibMap.Image = "rbxassetid://4155801252"
+                                        satVibMap.BackgroundColor3 = Color3.fromHSV(currentHue, 1, 1)
+                                        satVibMap.BackgroundTransparency = 0
+                                        local satCorner = Instance.new("UICorner")
+                                        satCorner.CornerRadius = UDim.new(0, 8)
+                                        satCorner.Parent = satVibMap
 
-					satCursor = Instance.new("Frame")
-					satCursor.Parent = satVibMap
-					satCursor.Size = UDim2.new(0, 14, 0, 14)
-					satCursor.AnchorPoint = Vector2.new(0.5, 0.5)
-					satCursor.BackgroundColor3 = Color3.fromHSV(currentHue, currentSat, currentVib)
-					local cursorCorner = Instance.new("UICorner")
-					cursorCorner.CornerRadius = UDim.new(1, 0)
-					cursorCorner.Parent = satCursor
-					local cursorStroke = Instance.new("UIStroke")
-					cursorStroke.Thickness = 2
-					cursorStroke.Transparency = 0.1
-					cursorStroke.Color = Color3.fromRGB(255, 255, 255)
-					cursorStroke.Parent = satCursor
+                                        satCursor = Instance.new("Frame")
+                                        satCursor.Parent = satVibMap
+                                        satCursor.Size = UDim2.new(0, 14, 0, 14)
+                                        satCursor.AnchorPoint = Vector2.new(0.5, 0.5)
+                                        satCursor.BackgroundColor3 = Color3.fromHSV(currentHue, currentSat, currentVib)
+                                        local cursorCorner = Instance.new("UICorner")
+                                        cursorCorner.CornerRadius = UDim.new(1, 0)
+                                        cursorCorner.Parent = satCursor
+                                        local cursorStroke = Instance.new("UIStroke")
+                                        cursorStroke.Thickness = 2
+                                        cursorStroke.Transparency = 0.1
+                                        cursorStroke.Color = Color3.fromRGB(255, 255, 255)
+                                        cursorStroke.Parent = satCursor
 
-					hueSlider = Instance.new("Frame")
-					hueSlider.Parent = mainFrame
-					hueSlider.Size = UDim2.new(0, 8, 0, 160)
-					hueSlider.Position = UDim2.new(0, 180, 0, 40)
-					local hueCorner = Instance.new("UICorner")
-					hueCorner.CornerRadius = UDim.new(1, 0)
-					hueCorner.Parent = hueSlider
+                                        hueSlider = Instance.new("Frame")
+                                        hueSlider.Parent = mainFrame
+                                        hueSlider.Size = UDim2.new(0, 8, 0, 160)
+                                        hueSlider.Position = UDim2.new(0, 180, 0, 40)
+                                        local hueCorner = Instance.new("UICorner")
+                                        hueCorner.CornerRadius = UDim.new(1, 0)
+                                        hueCorner.Parent = hueSlider
 
-					local hueGradient = Instance.new("UIGradient")
-					hueGradient.Rotation = 90
-					local huePoints = {}
-					for i = 0, 10 do
-						local t = i / 10
-						table.insert(huePoints, ColorSequenceKeypoint.new(t, Color3.fromHSV(t, 1, 1)))
-					end
-					hueGradient.Color = ColorSequence.new(huePoints)
-					hueGradient.Parent = hueSlider
+                                        local hueGradient = Instance.new("UIGradient")
+                                        hueGradient.Rotation = 90
+                                        local huePoints = {}
+                                        for i = 0, 10 do
+                                                local t = i / 10
+                                                table.insert(huePoints, ColorSequenceKeypoint.new(t, Color3.fromHSV(t, 1, 1)))
+                                        end
+                                        hueGradient.Color = ColorSequence.new(huePoints)
+                                        hueGradient.Parent = hueSlider
 
-					local hueDragHolder = Instance.new("Frame")
-					hueDragHolder.Parent = hueSlider
-					hueDragHolder.Size = UDim2.new(1, 0, 1, 0)
-					hueDragHolder.BackgroundTransparency = 1
+                                        local hueDragHolder = Instance.new("Frame")
+                                        hueDragHolder.Parent = hueSlider
+                                        hueDragHolder.Size = UDim2.new(1, 0, 1, 0)
+                                        hueDragHolder.BackgroundTransparency = 1
 
-					hueDrag = Instance.new("Frame")
-					hueDrag.Parent = hueDragHolder
-					hueDrag.Size = UDim2.new(0, 14, 0, 14)
-					hueDrag.AnchorPoint = Vector2.new(0.5, 0.5)
-					hueDrag.Position = UDim2.new(0.5, 0, currentHue, 0)
-					hueDrag.BackgroundColor3 = Color3.fromHSV(currentHue, 1, 1)
-					local dragCorner = Instance.new("UICorner")
-					dragCorner.CornerRadius = UDim.new(1, 0)
-					dragCorner.Parent = hueDrag
-					local dragStroke = Instance.new("UIStroke")
-					dragStroke.Thickness = 2
-					dragStroke.Transparency = 0.1
-					dragStroke.Color = Color3.fromRGB(255, 255, 255)
-					dragStroke.Parent = hueDrag
+                                        hueDrag = Instance.new("Frame")
+                                        hueDrag.Parent = hueDragHolder
+                                        hueDrag.Size = UDim2.new(0, 14, 0, 14)
+                                        hueDrag.AnchorPoint = Vector2.new(0.5, 0.5)
+                                        hueDrag.Position = UDim2.new(0.5, 0, currentHue, 0)
+                                        hueDrag.BackgroundColor3 = Color3.fromHSV(currentHue, 1, 1)
+                                        local dragCorner = Instance.new("UICorner")
+                                        dragCorner.CornerRadius = UDim.new(1, 0)
+                                        dragCorner.Parent = hueDrag
+                                        local dragStroke = Instance.new("UIStroke")
+                                        dragStroke.Thickness = 2
+                                        dragStroke.Transparency = 0.1
+                                        dragStroke.Color = Color3.fromRGB(255, 255, 255)
+                                        dragStroke.Parent = hueDrag
 
-					local inputsFrame = Instance.new("Frame")
-					inputsFrame.Parent = mainFrame
-					inputsFrame.Position = UDim2.new(0, 200, 0, 40)
-					inputsFrame.Size = UDim2.new(0, 120, 0, 120)
-					inputsFrame.BackgroundTransparency = 1
+                                        local inputsFrame = Instance.new("Frame")
+                                        inputsFrame.Parent = mainFrame
+                                        inputsFrame.Position = UDim2.new(0, 200, 0, 40)
+                                        inputsFrame.Size = UDim2.new(0, 120, 0, 120)
+                                        inputsFrame.BackgroundTransparency = 1
 
-					local function createInputBox(y, placeholder, initialValue)
-						local box = Instance.new("TextBox")
-						box.Parent = inputsFrame
-						box.Position = UDim2.new(0, 0, 0, y)
-						box.Size = UDim2.new(0, 120, 0, 25)
-						box.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-						box.Text = tostring(initialValue)
-						box.TextColor3 = Color3.fromRGB(255, 255, 255)
-						box.TextSize = 14
-						box.PlaceholderText = placeholder
-						local boxCorner = Instance.new("UICorner")
-						boxCorner.CornerRadius = UDim.new(0, 4)
-						boxCorner.Parent = box
-						return box
-					end
+                                        local function createInputBox(y, placeholder, initialValue)
+                                                local box = Instance.new("TextBox")
+                                                box.Parent = inputsFrame
+                                                box.Position = UDim2.new(0, 0, 0, y)
+                                                box.Size = UDim2.new(0, 120, 0, 25)
+                                                box.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+                                                box.Text = tostring(initialValue)
+                                                box.TextColor3 = Color3.fromRGB(255, 255, 255)
+                                                box.TextSize = 14
+                                                box.PlaceholderText = placeholder
+                                                local boxCorner = Instance.new("UICorner")
+                                                boxCorner.CornerRadius = UDim.new(0, 4)
+                                                boxCorner.Parent = box
+                                                return box
+                                        end
 
-					local rBox = createInputBox(0, "R", math.floor(defaultColor.R * 255))
-					local gBox = createInputBox(30, "G", math.floor(defaultColor.G * 255))
-					local bBox = createInputBox(60, "B", math.floor(defaultColor.B * 255))
-					local hexBox = createInputBox(90, "Hex", "#" .. defaultColor:ToHex())
-					hexBox.Parent = mainFrame
-					hexBox.Position = UDim2.new(0, 200, 0, 170)
+                                        local rBox = createInputBox(0, "R", math.floor(defaultColor.R * 255))
+                                        local gBox = createInputBox(30, "G", math.floor(defaultColor.G * 255))
+                                        local bBox = createInputBox(60, "B", math.floor(defaultColor.B * 255))
+                                        local hexBox = createInputBox(90, "Hex", "#" .. defaultColor:ToHex())
+                                        hexBox.Parent = mainFrame
+                                        hexBox.Position = UDim2.new(0, 200, 0, 170)
 
-					local oldColorFrame = Instance.new("Frame")
-					oldColorFrame.Parent = mainFrame
-					oldColorFrame.Position = UDim2.new(0, 10, 0, 210)
-					oldColorFrame.Size = UDim2.new(0, 75, 0, 24)
-					oldColorFrame.BackgroundColor3 = defaultColor
-					local oldCorner = Instance.new("UICorner")
-					oldCorner.CornerRadius = UDim.new(0, 8)
-					oldCorner.Parent = oldColorFrame
+                                        local oldColorFrame = Instance.new("Frame")
+                                        oldColorFrame.Parent = mainFrame
+                                        oldColorFrame.Position = UDim2.new(0, 10, 0, 210)
+                                        oldColorFrame.Size = UDim2.new(0, 75, 0, 24)
+                                        oldColorFrame.BackgroundColor3 = defaultColor
+                                        local oldCorner = Instance.new("UICorner")
+                                        oldCorner.CornerRadius = UDim.new(0, 8)
+                                        oldCorner.Parent = oldColorFrame
 
-					local newDisplayFrame = Instance.new("Frame")
-					newDisplayFrame.Name = "NewDisplayFrame"
-					newDisplayFrame.Parent = mainFrame
-					newDisplayFrame.Position = UDim2.new(0, 95, 0, 210)
-					newDisplayFrame.Size = UDim2.new(0, 75, 0, 24)
-					newDisplayFrame.BackgroundColor3 = defaultColor
-					local newCorner = Instance.new("UICorner")
-					newCorner.CornerRadius = UDim.new(0, 8)
-					newCorner.Parent = newDisplayFrame
+                                        local newDisplayFrame = Instance.new("Frame")
+                                        newDisplayFrame.Name = "NewDisplayFrame"
+                                        newDisplayFrame.Parent = mainFrame
+                                        newDisplayFrame.Position = UDim2.new(0, 95, 0, 210)
+                                        newDisplayFrame.Size = UDim2.new(0, 75, 0, 24)
+                                        newDisplayFrame.BackgroundColor3 = defaultColor
+                                        local newCorner = Instance.new("UICorner")
+                                        newCorner.CornerRadius = UDim.new(0, 8)
+                                        newCorner.Parent = newDisplayFrame
 
-					local btnFrame = Instance.new("Frame")
-					btnFrame.Parent = mainFrame
-					btnFrame.Position = UDim2.new(0, 10, 0, 250)
-					btnFrame.Size = UDim2.new(0, 160, 0, 40)
-					btnFrame.BackgroundTransparency = 1
+                                        local btnFrame = Instance.new("Frame")
+                                        btnFrame.Parent = mainFrame
+                                        btnFrame.Position = UDim2.new(0, 10, 0, 250)
+                                        btnFrame.Size = UDim2.new(0, 160, 0, 40)
+                                        btnFrame.BackgroundTransparency = 1
 
-					cancelBtn = Instance.new("TextButton")
-					cancelBtn.Parent = btnFrame
-					cancelBtn.Size = UDim2.new(0, 70, 0, 30)
-					cancelBtn.Position = UDim2.new(0, 0, 0, 5)
-					cancelBtn.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
-					cancelBtn.Text = "取消"
-					cancelBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-					cancelBtn.TextSize = 14
-					local cancelCorner = Instance.new("UICorner")
-					cancelCorner.CornerRadius = UDim.new(0, 6)
-					cancelCorner.Parent = cancelBtn
+                                        cancelBtn = Instance.new("TextButton")
+                                        cancelBtn.Parent = btnFrame
+                                        cancelBtn.Size = UDim2.new(0, 70, 0, 30)
+                                        cancelBtn.Position = UDim2.new(0, 0, 0, 5)
+                                        cancelBtn.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+                                        cancelBtn.Text = Translate("取消")
+                                        cancelBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+                                        cancelBtn.TextSize = 14
+                                        local cancelCorner = Instance.new("UICorner")
+                                        cancelCorner.CornerRadius = UDim.new(0, 6)
+                                        cancelCorner.Parent = cancelBtn
 
-					confirmBtn = Instance.new("TextButton")
-					confirmBtn.Parent = btnFrame
-					confirmBtn.Size = UDim2.new(0, 70, 0, 30)
-					confirmBtn.Position = UDim2.new(0, 80, 0, 5)
-					confirmBtn.BackgroundColor3 = Color3.fromRGB(96, 205, 255)
-					confirmBtn.Text = "确认"
-					confirmBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-					confirmBtn.TextSize = 14
-					local confirmCorner = Instance.new("UICorner")
-					confirmCorner.CornerRadius = UDim.new(0, 6)
-					confirmCorner.Parent = confirmBtn
+                                        confirmBtn = Instance.new("TextButton")
+                                        confirmBtn.Parent = btnFrame
+                                        confirmBtn.Size = UDim2.new(0, 70, 0, 30)
+                                        confirmBtn.Position = UDim2.new(0, 80, 0, 5)
+                                        confirmBtn.BackgroundColor3 = Color3.fromRGB(96, 205, 255)
+                                        confirmBtn.Text = Translate("确认")
+                                        confirmBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+                                        confirmBtn.TextSize = 14
+                                        local confirmCorner = Instance.new("UICorner")
+                                        confirmCorner.CornerRadius = UDim.new(0, 6)
+                                        confirmCorner.Parent = confirmBtn
 
-					local function getRGBFromCurrent()
-						local c = Color3.fromHSV(currentHue, currentSat, currentVib)
-						return {R = math.floor(c.R * 255), G = math.floor(c.G * 255), B = math.floor(c.B * 255)}
-					end
+                                        local function getRGBFromCurrent()
+                                                local c = Color3.fromHSV(currentHue, currentSat, currentVib)
+                                                return {R = math.floor(c.R * 255), G = math.floor(c.G * 255), B = math.floor(c.B * 255)}
+                                        end
 
-					local function updateFromRGB()
-						local r = tonumber(rBox.Text) or 0
-						local g = tonumber(gBox.Text) or 0
-						local b = tonumber(bBox.Text) or 0
-						r = math.clamp(r, 0, 255)
-						g = math.clamp(g, 0, 255)
-						b = math.clamp(b, 0, 255)
-						local newColor = Color3.fromRGB(r, g, b)
-						currentHue, currentSat, currentVib = Color3.toHSV(newColor)
-						updatePickerUI()
-					end
+                                        local function updateFromRGB()
+                                                local r = tonumber(rBox.Text) or 0
+                                                local g = tonumber(gBox.Text) or 0
+                                                local b = tonumber(bBox.Text) or 0
+                                                r = math.clamp(r, 0, 255)
+                                                g = math.clamp(g, 0, 255)
+                                                b = math.clamp(b, 0, 255)
+                                                local newColor = Color3.fromRGB(r, g, b)
+                                                currentHue, currentSat, currentVib = Color3.toHSV(newColor)
+                                                updatePickerUI()
+                                        end
 
-					local draggingSat = false
-					local draggingHue = false
+                                        local draggingSat = false
+                                        local draggingHue = false
 
-					satVibMap.InputBegan:Connect(function(input)
-						if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-							draggingSat = true
-							mainFrame.Draggable = false
-							local x = (input.Position.X - satVibMap.AbsolutePosition.X) / satVibMap.AbsoluteSize.X
-							local y = (input.Position.Y - satVibMap.AbsolutePosition.Y) / satVibMap.AbsoluteSize.Y
-							currentSat = math.clamp(x, 0, 1)
-							currentVib = math.clamp(1 - y, 0, 1)
-							updatePickerUI()
-						end
-					end)
+                                        satVibMap.InputBegan:Connect(function(input)
+                                                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+                                                        draggingSat = true
+                                                        mainFrame.Draggable = false
+                                                        local x = (input.Position.X - satVibMap.AbsolutePosition.X) / satVibMap.AbsoluteSize.X
+                                                        local y = (input.Position.Y - satVibMap.AbsolutePosition.Y) / satVibMap.AbsoluteSize.Y
+                                                        currentSat = math.clamp(x, 0, 1)
+                                                        currentVib = math.clamp(1 - y, 0, 1)
+                                                        updatePickerUI()
+                                                end
+                                        end)
 
-					UserInputService.InputChanged:Connect(function(input)
-						if draggingSat and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
-							local x = (input.Position.X - satVibMap.AbsolutePosition.X) / satVibMap.AbsoluteSize.X
-							local y = (input.Position.Y - satVibMap.AbsolutePosition.Y) / satVibMap.AbsoluteSize.Y
-							currentSat = math.clamp(x, 0, 1)
-							currentVib = math.clamp(1 - y, 0, 1)
-							updatePickerUI()
-						end
-					end)
+                                        UserInputService.InputChanged:Connect(function(input)
+                                                if draggingSat and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+                                                        local x = (input.Position.X - satVibMap.AbsolutePosition.X) / satVibMap.AbsoluteSize.X
+                                                        local y = (input.Position.Y - satVibMap.AbsolutePosition.Y) / satVibMap.AbsoluteSize.Y
+                                                        currentSat = math.clamp(x, 0, 1)
+                                                        currentVib = math.clamp(1 - y, 0, 1)
+                                                        updatePickerUI()
+                                                end
+                                        end)
 
-					UserInputService.InputEnded:Connect(function(input)
-						if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-							draggingSat = false
-							draggingHue = false
-							mainFrame.Draggable = true
-						end
-					end)
+                                        UserInputService.InputEnded:Connect(function(input)
+                                                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+                                                        draggingSat = false
+                                                        draggingHue = false
+                                                        mainFrame.Draggable = true
+                                                end
+                                        end)
 
-					hueSlider.InputBegan:Connect(function(input)
-						if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-							draggingHue = true
-							mainFrame.Draggable = false
-							local y = (input.Position.Y - hueSlider.AbsolutePosition.Y) / hueSlider.AbsoluteSize.Y
-							currentHue = math.clamp(y, 0, 1)
-							updatePickerUI()
-						end
-					end)
+                                        hueSlider.InputBegan:Connect(function(input)
+                                                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+                                                        draggingHue = true
+                                                        mainFrame.Draggable = false
+                                                        local y = (input.Position.Y - hueSlider.AbsolutePosition.Y) / hueSlider.AbsoluteSize.Y
+                                                        currentHue = math.clamp(y, 0, 1)
+                                                        updatePickerUI()
+                                                end
+                                        end)
 
-					UserInputService.InputChanged:Connect(function(input)
-						if draggingHue and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
-							local y = (input.Position.Y - hueSlider.AbsolutePosition.Y) / hueSlider.AbsoluteSize.Y
-							currentHue = math.clamp(y, 0, 1)
-							updatePickerUI()
-						end
-					end)
+                                        UserInputService.InputChanged:Connect(function(input)
+                                                if draggingHue and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+                                                        local y = (input.Position.Y - hueSlider.AbsolutePosition.Y) / hueSlider.AbsoluteSize.Y
+                                                        currentHue = math.clamp(y, 0, 1)
+                                                        updatePickerUI()
+                                                end
+                                        end)
 
-					rBox.FocusLost:Connect(function(enter)
-						if enter then updateFromRGB() end
-					end)
-					gBox.FocusLost:Connect(function(enter)
-						if enter then updateFromRGB() end
-					end)
-					bBox.FocusLost:Connect(function(enter)
-						if enter then updateFromRGB() end
-					end)
+                                        rBox.FocusLost:Connect(function(enter)
+                                                if enter then updateFromRGB() end
+                                        end)
+                                        gBox.FocusLost:Connect(function(enter)
+                                                if enter then updateFromRGB() end
+                                        end)
+                                        bBox.FocusLost:Connect(function(enter)
+                                                if enter then updateFromRGB() end
+                                        end)
 
-					hexBox.FocusLost:Connect(function(enter)
-						if enter then
-							local hex = hexBox.Text:gsub("#", "")
-							local success, col = pcall(Color3.fromHex, hex)
-							if success and typeof(col) == "Color3" then
-								currentHue, currentSat, currentVib = Color3.toHSV(col)
-								updatePickerUI()
-							else
-								hexBox.Text = "#" .. Color3.fromHSV(currentHue, currentSat, currentVib):ToHex()
-							end
-						end
-					end)
+                                        hexBox.FocusLost:Connect(function(enter)
+                                                if enter then
+                                                        local hex = hexBox.Text:gsub("#", "")
+                                                        local success, col = pcall(Color3.fromHex, hex)
+                                                        if success and typeof(col) == "Color3" then
+                                                                currentHue, currentSat, currentVib = Color3.toHSV(col)
+                                                                updatePickerUI()
+                                                        else
+                                                                hexBox.Text = "#" .. Color3.fromHSV(currentHue, currentSat, currentVib):ToHex()
+                                                        end
+                                                end
+                                        end)
 
-					confirmBtn.MouseButton1Click:Connect(function()
-						local newColor = Color3.fromHSV(currentHue, currentSat, currentVib)
-						updateColor(newColor)
-						pickerGui:Destroy()
-						pickerGui = nil
-						isOpen = false
-					end)
+                                        confirmBtn.MouseButton1Click:Connect(function()
+                                                local newColor = Color3.fromHSV(currentHue, currentSat, currentVib)
+                                                updateColor(newColor)
+                                                pickerGui:Destroy()
+                                                pickerGui = nil
+                                                isOpen = false
+                                        end)
 
-					cancelBtn.MouseButton1Click:Connect(function()
-						pickerGui:Destroy()
-						pickerGui = nil
-						isOpen = false
-					end)
+                                        cancelBtn.MouseButton1Click:Connect(function()
+                                                pickerGui:Destroy()
+                                                pickerGui = nil
+                                                isOpen = false
+                                        end)
 
-					updatePickerUI()
-				end
+                                        updatePickerUI()
+                                end
 
-				ColorBtn.MouseButton1Click:Connect(function()
-					if not isOpen then
-						createPicker()
-						isOpen = true
-					else
-						if pickerGui then
-							pickerGui:Destroy()
-							pickerGui = nil
-						end
-						createPicker()
-					end
-				end)
+                                ColorBtn.MouseButton1Click:Connect(function()
+                                        if not isOpen then
+                                                createPicker()
+                                                isOpen = true
+                                        else
+                                                if pickerGui then
+                                                        pickerGui:Destroy()
+                                                        pickerGui = nil
+                                                end
+                                                createPicker()
+                                        end
+                                end)
 
-				local funcs = {
-					SetColor = function(self, newColor)
-						updateColor(newColor)
-					end,
-					Module = ColorModule
-				}
+                                local funcs = {
+                                        SetColor = function(self, newColor)
+                                                updateColor(newColor)
+                                        end,
+                                        Module = ColorModule
+                                }
 
-				return funcs
-			end
+                                return funcs
+                        end
             return section
         end
         return tab
